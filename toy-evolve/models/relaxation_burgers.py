@@ -17,8 +17,8 @@ class relaxation_burgers(object):
         for i in range(q_L.shape[1]):
             uL, vL = q_L[:,i]
             uR, vR = q_R[:,i]
-            f[0,i] = 0.5*(       (vL+vR) - numpy.sqrt(self.a)*(uL-uR))
-            f[1,i] = 0.5*(self.a*(uL+uR) - numpy.sqrt(self.a)*(vL-vR))
+            f[0,i] = 0.5*(       (vL+vR) - numpy.sqrt(self.a)*(uR-uL))
+            f[1,i] = 0.5*(self.a*(uL+uR) - numpy.sqrt(self.a)*(vR-vL))
         return f
         
 def initial_riemann(ql, qr):
