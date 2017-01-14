@@ -70,7 +70,7 @@ class simulation(object):
     def plot_system(self):
         fig = pyplot.figure()
         for i in range(self.Nvars):
-            ax = fig.add_subplot(1,self.Nvars+1, i+1)
+            ax = fig.add_subplot(1, self.Nvars+1, i+1)
             x = self.grid.interior_coordinates()
             ax.plot(x, self.q[i, 
                               self.grid.Ngz:self.grid.Ngz+self.grid.Npoints])

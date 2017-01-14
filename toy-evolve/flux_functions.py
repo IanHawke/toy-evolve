@@ -13,7 +13,7 @@ def lax_friedrichs(q_minus, q_plus, simulation):
 
 def upwind(q_minus, q_plus, simulation):
     flux = numpy.zeros_like(q_minus)
-    flux[:, 1:-1] = simulation.model.riemann_problem_flux(q_plus[:,0:-2], 
+    flux[:, 1:-1] = simulation.model.riemann_problem_flux(q_plus [:, 0:-2], 
                                                           q_minus[:, 1:-1])
     return flux
     
