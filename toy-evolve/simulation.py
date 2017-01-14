@@ -67,6 +67,24 @@ class simulation(object):
         pyplot.title(r"Solution at $t={}$".format(self.t))
         return fig
         
+    def plot_system(self):
+        fig = pyplot.figure()
+        for i in range(self.Nvars):
+            ax = fig.add_subplot(1,self.Nvars+1, i+1)
+            x = self.grid.interior_coordinates()
+            ax.plot(x, self.q[i, 
+                              self.grid.Ngz:self.grid.Ngz+self.grid.Npoints])
+            ax.set_xlabel(r"$x$")
+            ax.set_ylabel(r"$q_{{}}$".format(i))
+            ax.set_xlim(self.grid.interval[0],self.grid.interval[1])
+            qmax = numpy.max(self.q[i,:])
+            qmin = numpy.min(self.q[i,:])
+            dq = qmax - qmin
+            ax.set_ylim(qmin-0.05*dq, qmax+0.05*dq)
+        pyplot.title(r"Solution at $t={}$".format(self.t))
+        pyplot.tight_layout()
+        return fig
+        
     def error_norm(self, norm):
         if norm=='inf' or norm==numpy.inf:
             return numpy.max(numpy.abs(self.q[0,:] - self.q0[0,:]))

@@ -44,13 +44,13 @@ def imex222(source):
         dt = simulation.dt
         rhs = simulation.rhs
         def residual1(qguess):
-            return qguess - q.ravel() - dt * gamma * source(qguess)
+            return qguess - q.ravel() - dt * gamma * source(qguess.reshape(q.shape)).ravel()
         qguess = q.copy()
         q1 = fsolve(residual1, qguess.ravel()).reshape(q.shape)
         k1 = rhs(q1, simulation)
         source1 = source(q1)
         def residual2(qguess):
-            return qguess - q.ravel() - dt * (k1.ravel() + (1 - 2*gamma)*source1.ravel() + gamma*source(qguess))
+            return qguess - q.ravel() - dt * (k1.ravel() + (1 - 2*gamma)*source1.ravel() + gamma*source(qguess.reshape(q.shape)).ravel())
         q2 = fsolve(residual2, q1.copy().ravel()).reshape(q.shape)
         k2 = rhs(q2, simulation)
         source2 = source(q2)
